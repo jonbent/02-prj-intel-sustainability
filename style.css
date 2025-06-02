@@ -1,1 +1,244 @@
-/* Add your CSS here */
+/* Set a simple font and background for the whole page */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f7fa; /* Light Intel-like background */
+  color: #222;
+}
+
+/* Style the header/hero section */
+header {
+  /* Add a blue gradient background for more visual interest */
+  background: linear-gradient(120deg, #0071c5 60%, #00b4fc 100%);
+  color: #fff;
+  padding: 48px 16px 36px 16px; /* More padding for a bolder look */
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0, 113, 197, 0.10); /* Soft 
+  position: relative;
+  font-family: 'Segoe UI', Arial, sans-serif; /* Use a modern, friendly font */
+}
+
+header img {
+  width: 100px;
+  margin-bottom: 12px;
+}
+
+header h1 {
+  margin: 18px 0 12px 0;
+  font-size: 2.2em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Subtle shadow for depth */
+  font-family: 'Segoe UI Semibold', Arial, sans-serif; /* Make heading font a bit different */
+}
+
+header p {
+  margin: 0 auto;
+  max-width: 520px;
+  font-size: 1.15em;
+  background: rgba(255,255,255,0.10);
+  padding: 12px 18px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  border-left: 4px solid #00b4fc;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Timeline section styles */
+section {
+  /* Only padding and background for the section */
+  padding: 64px 16px 64px 16px;
+  position: relative;
+  margin-bottom: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  /* Remove flex and gap from section */
+  overflow-x: auto;
+  overflow-y: visible;
+  white-space: nowrap;
+  /* Hide the horizontal scrollbar but keep scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  /* Enable horizontal scroll snap and smooth scroll for timeline cards */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Timeline inner wrapper for flex layout */
+.timeline-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  min-width: max-content;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+/* Style each timeline card */
+.timeline-inner > div {
+  background: #fff;
+  border-radius: 12px;
+  /* Add a soft box shadow to all cards */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  padding: 36px 14px 16px 14px;
+  width: 220px;
+  min-width: 180px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: 
+    transform 0.18s, 
+    box-shadow 0.18s, 
+    border 0.18s;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Draw the horizontal timeline line using a pseudo-element */
+.timeline-inner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  background: #0071c5;
+  z-index: 0;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Make each timeline card grow and stand out on hover or when active */
+.timeline-inner > div:hover,
+.timeline-inner > div.active {
+  transform: translateY(-8px) scale(1.04);
+  /* Emphasized box shadow on hover/active */
+  box-shadow: 0 8px 32px rgba(0,113,197,0.18), 0 2px 8px rgba(0,0,0,0.12);
+  border: 2px solid #0071c5;
+}
+
+/* Card headings */
+section > div h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.2em;
+  color: #0071c5;
+  text-align: center;
+}
+
+section > div h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.05em;
+  color: #333;
+  text-align: center;
+}
+
+/* Card images */
+section > div img {
+  width: 100%;
+  aspect-ratio: 2.5 / 1.5; /* Makes the image ratio similar to 250x100px */
+  object-fit: cover;      /* Ensures the image fills the area without distortion */
+  border-radius: 6px;
+  margin: 8px 0 10px 0;
+  background: #e0e7ef;
+}
+
+/* Hide the description in the card itself */
+section > div p {
+  display: none;
+}
+
+/* Responsive: vertical timeline on small screens */
+@media (max-width: 700px) {
+  section {
+    /* ...existing code... */
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 80vh;
+    /* Add extra bottom padding so the last card is not hidden behind the fixed description */
+    padding: 32px 2px 96px 2px;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+  .timeline-inner {
+    flex-direction: column;
+    gap: 40px;
+    min-width: 0;
+    width: 100%;
+    align-items: flex-start;
+    /* Ensure the timeline-inner stretches to full height for the line */
+    position: relative;
+    height: 100%;
+  }
+  /* Draw the vertical timeline line in the center */
+  .timeline-inner::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: #0071c5;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .timeline-inner > div {
+    width: 95vw;
+    min-width: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    align-items: flex-start;
+    padding-left: 48px;
+    padding-top: 36px;
+    /* Remove scroll snap for vertical mode */
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+}
+
+/* Style for the hover description area */
+#hover-description {
+  min-height: 60px;
+  background: #e0e7ef;
+  border-radius: 8px;
+  margin: 24px auto 16px auto;
+  max-width: 600px;
+  padding: 16px;
+  color: #222;
+  font-size: 1.1em;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: background 0.2s;
+}
+
+/* On small screens, fix the description to the bottom of the page */
+@media (max-width: 700px) {
+  /* ...existing code... */
+  #hover-description {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    border-radius: 12px 12px 0 0;
+    max-width: none;
+    width: 100%;
+    z-index: 100;
+    /* Add a little shadow at the top for separation */
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.10);
+  }
+}
